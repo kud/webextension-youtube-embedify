@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "start:firefox": "web-ext run --firefox=nightly",
+    "build": "rm -r web-ext-artifacts/*; web-ext build",
+    "publish": "open https://addons.mozilla.org/en-US/developers/addon/youtube-embedify/edit"
+  },
+  "devDependencies": {
+    "web-ext": "8.3.0"
+  }
+}
