@@ -3,7 +3,7 @@
   "name": "YouTube Embedify",
   "version": "1.0",
   "description": "Replaces YouTube video URLs with embed versions.",
-  "permissions": ["tabs", "webNavigation", "*://www.youtube.com/*"],
+  "permissions": ["tabs", "webNavigation", "storage", "*://www.youtube.com/*"],
   "background": {
     "scripts": ["background.js"],
     "persistent": false
@@ -13,7 +13,8 @@
       "16": "icons/icon.svg",
       "48": "icons/icon.svg",
       "128": "icons/icon.svg"
-    }
+    },
+    "default_popup": "src/popup.html"
   },
   "icons": {
     "16": "icons/icon.svg",

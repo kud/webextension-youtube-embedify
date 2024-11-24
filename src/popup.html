@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>YouTube Embedify</title>
+    <style>
+      .Popup {
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        width: 200px;
+        height: 100%;
+        text-align: center;
+        position: relative;
+        margin: 0;
+        overflow: hidden;
+        background-color: var(--theme-color, #fff);
+        color: var(--theme-text-color, #000);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .Popup-title {
+        font-size: 20px;
+        font-weight: bold;
+        margin: 20px 0;
+      }
+      .Popup-icon {
+        width: 50%;
+        height: auto;
+        cursor: pointer;
+        transition: opacity 0.3s, transform 0.3s;
+        margin: 10px 0 20px 0;
+      }
+      .Popup-icon:hover {
+        transform: scale(1.1);
+      }
+      .Popup-statusBanner {
+        font-size: 12px;
+        font-weight: normal;
+        padding: 5px;
+        color: #fff;
+        background-color: var(--theme-color, #000);
+        width: 100%;
+        text-align: center;
+        transition: background-color 0.3s;
+        opacity: 0.8;
+        margin-top: 10px;
+      }
+      .Popup-statusBanner--disabled {
+        background-color: #777;
+      }
+    </style>
+  </head>
+  <body class="Popup">
+    <div class="Popup-title">YouTube Embedify</div>
+    <img
+      id="feature-icon"
+      class="Popup-icon"
+      src="../icons/icon.svg"
+      alt="Feature Icon"
+    />
+    <div id="status-banner" class="Popup-statusBanner">Enabled</div>
+    <script src="popup.js"></script>
+  </body>
+</html>
