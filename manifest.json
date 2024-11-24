@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "YouTube Embedify",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "Replaces YouTube video URLs with embed versions.",
   "permissions": ["tabs", "webNavigation", "storage", "*://www.youtube.com/*"],
   "background": {
