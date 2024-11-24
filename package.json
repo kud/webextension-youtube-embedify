@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start:firefox": "web-ext run --firefox=nightly",
-    "build": "rm -r web-ext-artifacts/*; web-ext build",
+    "build": "node -e \"let p=require('./package.json'); let m=require('./manifest.json'); m.version=p.version; require('fs').writeFileSync('./manifest.json', JSON.stringify(m, null, 2));\" && rm -r web-ext-artifacts/*; web-ext build --artifacts-dir=web-ext-artifacts && mv web-ext-artifacts/*.zip web-ext-artifacts/youtube_embedify-$(node -p \"require('./package.json').version\").zip",
     "publish": "open https://addons.mozilla.org/en-US/developers/addon/youtube-embedify/edit"
   },
   "devDependencies": {
