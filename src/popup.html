@@ -2,14 +2,24 @@
 <html>
   <head>
     <title>YouTube Embedify</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
     <style>
+      @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+
       .Popup {
-        font-family: "Helvetica Neue", Arial, sans-serif;
-        width: 200px;
-        height: 100%;
+        font-family: "Montserrat", sans-serif;
+        max-width: 300px;
+        max-height: 600px;
+        width: 100%;
+        height: auto;
         text-align: center;
         position: relative;
         margin: 0;
+        padding: 10px;
+        box-sizing: border-box;
         overflow: hidden;
         background-color: var(--theme-color, #fff);
         color: var(--theme-text-color, #000);
@@ -19,9 +29,10 @@
         align-items: center;
       }
       .Popup-title {
-        font-size: 20px;
+        font-size: 24px;
         font-weight: bold;
         margin: 20px 0;
+        color: var(--theme-text-color, #000);
       }
       .Popup-icon {
         width: 50%;
@@ -33,20 +44,32 @@
       .Popup-icon:hover {
         transform: scale(1.1);
       }
-      .Popup-statusBanner {
-        font-size: 12px;
-        font-weight: normal;
-        padding: 5px;
-        color: #fff;
-        background-color: var(--theme-color, #000);
+      .Popup-buttonContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
         width: 100%;
-        text-align: center;
-        transition: background-color 0.3s;
-        opacity: 0.8;
-        margin-top: 10px;
+        padding: 0 20px;
       }
-      .Popup-statusBanner--disabled {
-        background-color: #777;
+      .Popup-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #000;
+        color: #fff; /* Ensure the button text color is always white */
+        border: none;
+        border-radius: 5px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        width: 100%;
+      }
+      .Popup-button:hover {
+        background-color: #333;
+      }
+      .Popup-button i {
+        margin-right: 8px;
       }
     </style>
   </head>
@@ -57,8 +80,27 @@
       class="Popup-icon"
       src="../icons/icon.svg"
       alt="Feature Icon"
+      title="Enable/Disable YT Embedify"
     />
-    <div id="status-banner" class="Popup-statusBanner">Enabled</div>
+    <div class="Popup-buttonContainer">
+      <button id="home-button" class="Popup-button">
+        <i class="fas fa-home"></i> Home
+      </button>
+      <button id="subscriptions-button" class="Popup-button">
+        <i class="fas fa-list"></i> Subscriptions
+      </button>
+    </div>
     <script src="popup.js"></script>
+    <script>
+      // Adjust the background color based on the Firefox theme
+      browser.theme.getCurrent().then((theme) => {
+        if (theme.colors) {
+          document.body.style.backgroundColor = theme.colors.popup || "#fff"
+          document.body.style.color = theme.colors.popup_text || "#000"
+          document.querySelector(".Popup-title").style.color =
+            theme.colors.popup_text || "#000"
+        }
+      })
+    </script>
   </body>
 </html>

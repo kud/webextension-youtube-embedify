@@ -7,12 +7,11 @@
     "tabs",
     "webNavigation",
     "storage",
+    "theme",
     "*://www.youtube.com/*"
   ],
   "background": {
-    "scripts": [
-      "background.js"
-    ],
+    "scripts": ["background.js"],
     "persistent": false
   },
   "browser_action": {
