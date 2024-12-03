@@ -1,10 +1,16 @@
 const createLink = (id, iconClass, text, url) => {
-  const link = document.createElement("a")
-  link.id = id
-  link.className = "Embedify-link"
-  link.href = url
-  link.innerHTML = `<i class="${iconClass}"></i> ${text}`
-  return link
+  const button = document.createElement("button")
+  button.id = id
+  button.className =
+    "ytp-button ytp-share-button ytp-show-share-title ytp-share-button-visible Embedify-link"
+  button.title = text
+  button.setAttribute("aria-label", text)
+  button.setAttribute("aria-haspopup", "true")
+  button.innerHTML = `<div class="ytp-icon ytp-share-icon" style="font-size: 24px;"><i class="${iconClass}"></i></div><div class="ytp-title ytp-share-title"><span>${text}</span></div>`
+  button.addEventListener("click", () => {
+    window.location.href = url
+  })
+  return button
 }
 
 const addLinksToYouTubePage = () => {
@@ -12,12 +18,26 @@ const addLinksToYouTubePage = () => {
     return
   }
 
-  if (document.querySelector(".Embedify-linkContainer")) {
+  const targetElement = document.querySelector(".ytp-chrome-top-buttons")
+  if (!targetElement) {
+    // Wait for the target element to be available
+    const observer = new MutationObserver(() => {
+      const targetElement = document.querySelector(".ytp-chrome-top-buttons")
+      if (targetElement) {
+        observer.disconnect()
+        addLinksToYouTubePage()
+      }
+    })
+    observer.observe(document.body, { childList: true, subtree: true })
     return
   }
 
-  const container = document.createElement("div")
-  container.className = "Embedify-linkContainer"
+  if (
+    document.querySelector("#Embedify-homeLink") ||
+    document.querySelector("#Embedify-subscriptionsLink")
+  ) {
+    return
+  }
 
   const homeLink = createLink(
     "Embedify-homeLink",
@@ -32,77 +52,28 @@ const addLinksToYouTubePage = () => {
     "https://www.youtube.com/feed/subscriptions",
   )
 
-  container.appendChild(homeLink)
-  container.appendChild(subscriptionsLink)
-
-  document.body.appendChild(container)
-
-  let hideTimeout
-
-  const showLinks = () => {
-    container.classList.add("Embedify-linkContainer--visible")
-    if (hideTimeout) {
-      clearTimeout(hideTimeout)
-    }
-    hideTimeout = setTimeout(() => {
-      if (!container.matches(":hover")) {
-        container.classList.remove("Embedify-linkContainer--visible")
-      }
-    }, 1500)
-  }
-
-  document.addEventListener("mousemove", showLinks)
-  container.addEventListener("mouseenter", () => {
-    if (hideTimeout) {
-      clearTimeout(hideTimeout)
-    }
-  })
-  container.addEventListener("mouseleave", showLinks)
-  showLinks()
+  targetElement.insertBefore(subscriptionsLink, targetElement.firstChild)
+  targetElement.insertBefore(homeLink, targetElement.firstChild)
 }
 
 const style = document.createElement("style")
 style.textContent = `
-  .Embedify-linkContainer {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    flex-direction: row;
-    gap: 300px;
-    z-index: 10000;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-    pointer-events: none; /* Always none */
+  .Embedify-link .ytp-title span {
+    transition: background-color 0.3s, border-radius 0.3s, transform 0.1s;
+    padding: 4px 10px;
   }
-  .Embedify-linkContainer--visible {
-    opacity: 1;
+
+  .Embedify-link:hover .ytp-title span {
+      background-color: #222;
+      border-radius: 4px;
+      transform: scale(0.95);
+      display: block;
   }
-  .Embedify-link {
-    background-color: #000;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    width: 220px;
-    height: 100px;
+
+  .Embedify-link .ytp-icon {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 20px;
-    cursor: pointer;
-    transition: background-color 0.3s, opacity 0.3s, transform 0.3s;
-    text-decoration: none;
-    text-align: center;
-    opacity: 0.8;
-    pointer-events: auto; /* Allow pointer events */
-  }
-  .Embedify-link:hover {
-    opacity: 1;
-    transform: scale(1.1);
-  }
-  .Embedify-link i {
-    margin-right: 8px;
   }
 `
 document.head.appendChild(style)
