@@ -24,25 +24,6 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   })
 
-  const homeButton = document.getElementById("home-button")
-  homeButton.addEventListener("click", () => {
-    browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-      const currentTab = tabs[0]
-      browser.tabs.update(currentTab.id, { url: "https://www.youtube.com" })
-    })
-  })
-
-  const subscriptionsButton = document.getElementById("subscriptions-button")
-  subscriptionsButton.addEventListener("click", () => {
-    browser.tabs.query({ active: true, currentWindow: true }).then((tabs) => {
-      const currentTab = tabs[0]
-      browser.tabs.update(currentTab.id, {
-        url: "https://www.youtube.com/feed/subscriptions",
-      })
-    })
-  })
-
-  // Adjust the background and text color based on the Firefox theme
   browser.theme.getCurrent().then((theme) => {
     if (theme.colors) {
       document.body.style.backgroundColor = theme.colors.popup || "#fff"

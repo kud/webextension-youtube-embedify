@@ -93,3 +93,12 @@ browser.webNavigation.onHistoryStateUpdated.addListener(
   handleNavigation,
   navigationFilters,
 )
+
+// Inject content script to add buttons to YouTube page
+browser.webNavigation.onCompleted.addListener((details) => {
+  if (details.url.includes("youtube.com")) {
+    browser.tabs.executeScript(details.tabId, {
+      file: "contentScript.js",
+    })
+  }
+})

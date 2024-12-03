@@ -44,33 +44,6 @@
       .Popup-icon:hover {
         transform: scale(1.1);
       }
-      .Popup-buttonContainer {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        width: 100%;
-        padding: 0 20px;
-      }
-      .Popup-button {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background-color: #000;
-        color: #fff; /* Ensure the button text color is always white */
-        border: none;
-        border-radius: 5px;
-        padding: 10px 20px;
-        font-size: 16px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        width: 100%;
-      }
-      .Popup-button:hover {
-        background-color: #333;
-      }
-      .Popup-button i {
-        margin-right: 8px;
-      }
     </style>
   </head>
   <body class="Popup">
@@ -82,17 +55,8 @@
       alt="Feature Icon"
       title="Enable/Disable YT Embedify"
     />
-    <div class="Popup-buttonContainer">
-      <button id="home-button" class="Popup-button">
-        <i class="fas fa-home"></i> Home
-      </button>
-      <button id="subscriptions-button" class="Popup-button">
-        <i class="fas fa-list"></i> Subscriptions
-      </button>
-    </div>
     <script src="popup.js"></script>
     <script>
-      // Adjust the background color based on the Firefox theme
       browser.theme.getCurrent().then((theme) => {
         if (theme.colors) {
           document.body.style.backgroundColor = theme.colors.popup || "#fff"
